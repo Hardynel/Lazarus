@@ -208,13 +208,13 @@ int main()
         lightShader.set_vec3("light.diffuse", glm::vec3(0.5f));
         lightShader.set_vec3("light.specular", glm::vec3(1.0f));
         //lightShader.set_vec3("light.direction", -0.2f, -1.0f, -0.3f);
-        lightShader.set_vec3("lightPos", lightPos);
+        //lightShader.set_vec3("lightPos", camera.position_);
 
         // spotlight
         // ---------
-        lightShader.set_vec3("light_position", camera.position_);
-        lightShader.set_vec3("light_direction", camera.front_);
-        lightShader.set_float("cutoff", glm::cos(glm::radians(12.5f)));
+        lightShader.set_vec3("light.position", camera.position_);
+        lightShader.set_vec3("light.direction", camera.front_);
+        lightShader.set_float("light.cutoff", glm::cos(glm::radians(12.5f)));
 
         // point light
         // -----------
@@ -252,7 +252,7 @@ int main()
 
         // render cube
 
-
+        /*
         // source of light
         lightCubeShader.use();
         lightCubeShader.set_matrix("projection", projection);
@@ -267,7 +267,7 @@ int main()
 
         glBindVertexArray(lightCubeVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
-
+        */
 
         glfwSwapBuffers(window);
         glfwPollEvents();

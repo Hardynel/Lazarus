@@ -29,7 +29,7 @@ out vec4 fragColor;
 in vec3 fragPos;
 in vec3 Normal;
 
-in vec3 lightPosition;
+// in vec3 lightPosition;
 in vec2 texCoords;
 
 uniform float time;
@@ -39,7 +39,7 @@ uniform Light light;
 
 void main()
 {
-    vec3 lightDir = normalize(lightPosition - fragPos);
+    vec3 lightDir = normalize(light.position - fragPos);
 
     float theta = dot(lightDir, normalize(-light.direction));
 
@@ -61,12 +61,15 @@ void main()
         float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
         vec3 specular = light.specular * spec * texture(material.specular, texCoords).rgb;
 
-        float distance = length(lightPosition - fragPos);
-        float attenuation = 1 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+        // attenuation
+        float distance = length(light.position - fragPos);
+        float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
-        ambient *= attenuation;
+        // ambient *= attenuation;
         diffuse *= attenuation;
         specular *= attenuation;
+
+
         /*
         // emission
         vec3 emission = vec3(0.0);
