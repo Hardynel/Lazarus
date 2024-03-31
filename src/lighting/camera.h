@@ -7,7 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-enum MovementKey
+enum class MovementKey
 {
     W,
     S,
@@ -40,9 +40,9 @@ public:
 
     glm::vec3 position_;
     glm::vec3 front_;
+    glm::vec3 world_up_;
     glm::vec3 right_;
     glm::vec3 up_;
-    glm::vec3 world_up_;
 
     Camera(glm::vec3 position       = glm::vec3(0.0f, 0.0f,  3.0f),
            glm::vec3 front          = glm::vec3(0.0f, 0.0f, -1.0f),

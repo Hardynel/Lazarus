@@ -269,7 +269,7 @@ int main()
         glm::mat4 view = camera.get_view_matrix();
 
         glm::mat4 projection = glm::mat4(1.0f);
-        projection = glm::perspective(glm::radians(camera.fov_), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        projection = glm::perspective(glm::radians(camera.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
         ourShader.set_matrix("view", view);
         ourShader.set_matrix("projection", projection);
@@ -343,15 +343,15 @@ void mouse_callback(GLFWwindow* window, double x_pos_in, double y_pos_in)
 
    if (firstMouse)
     {
-        camera.last_x_ = x_pos;
-        camera.last_y_ = y_pos;
+        camera.last_x = x_pos;
+        camera.last_y = y_pos;
         firstMouse = false;
     }
 
-    float x_offset = x_pos - camera.last_x_;
-    float y_offset = camera.last_y_ - y_pos;
-    camera.last_x_ = x_pos;
-    camera.last_y_ = y_pos;
+    float x_offset = x_pos - camera.last_x;
+    float y_offset = camera.last_y - y_pos;
+    camera.last_x = x_pos;
+    camera.last_y = y_pos;
 
     camera.process_camera_rotate(x_offset, y_offset);
 }

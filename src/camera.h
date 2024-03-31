@@ -28,21 +28,21 @@ class Camera
 { 
 public:
     // Euler's angles
-    float yaw_;
-    float pitch_;
+    float yaw;
+    float pitch;
 
     // mouse rotation and zoom
-    float last_x_;
-    float last_y_;
-    float movement_speed_;
-    float sensitivity_;
-    float fov_;
+    float last_x;
+    float last_y;
+    float movement_speed;
+    float sensitivity;
+    float fov;
 
-    glm::vec3 position_;
-    glm::vec3 front_;
-    glm::vec3 right_;
-    glm::vec3 up_;
-    glm::vec3 world_up_;
+    glm::vec3 position;
+    glm::vec3 front;
+    glm::vec3 right;
+    glm::vec3 up;
+    glm::vec3 world_up;
 
     Camera(glm::vec3 position       = glm::vec3(0.0f, 0.0f,  3.0f),
            glm::vec3 front          = glm::vec3(0.0f, 0.0f, -1.0f),

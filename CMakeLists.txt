@@ -9,6 +9,8 @@ IF(NOT CMAKE_BUILD_TYPE)
     SET(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
 ENDIF(NOT CMAKE_BUILD_TYPE)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
+
 set(SOURCE_EXE ${CMAKE_PROJECT_NAME})
 
 include(${CMAKE_SOURCE_DIR}/cmake/lighting/sources_list.cmake)
@@ -43,8 +45,14 @@ set(LIBS ${LIBS} GLAD)
 add_executable(${SOURCE_EXE} ${SOURCES})
 target_include_directories(${SOURCE_EXE} PUBLIC ${CMAKE_SOURCE_DIR}/include/)
 target_link_directories(${SOURCE_EXE} PUBLIC ${CMAKE_SOURCE_DIR}/lib/)
-target_link_libraries(${SOURCE_EXE} ${LIBS}) 
-set_target_properties(${SOURCE_EXE} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+target_link_libraries(${SOURCE_EXE} ${LIBS})
+
+if(WIN32)
+    set_target_properties(${SOURCE_EXE} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+    set_target_properties(${SOURCE_EXE} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/Debug")
+elseif(UNIX AND NOT APPLE)
+    set_target_properties(${SOURCE_EXE} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+endif(WIN32)
 
 foreach(SHADER ${SHADERS})
     add_custom_command(TARGET ${SOURCE_EXE} PRE_BUILD

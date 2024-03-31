@@ -10,16 +10,16 @@ Camera::Camera(glm::vec3 position,
                float movement_speed,
                float sensitivity,
                float fov)
-               : position_(position)
-               , front_(front)
-               , world_up_(world_up)
-               , yaw_(yaw)
+               : yaw_(yaw)
                , pitch_(pitch)
                , last_x_(last_x)
                , last_y_(last_y)
                , movement_speed_(movement_speed)
                , sensitivity_(sensitivity)
                , fov_(fov)
+               , position_(position)
+               , front_(front)
+               , world_up_(world_up)
 {
     update_camera_vectors();
 }
@@ -66,26 +66,21 @@ void Camera::process_keyboard_input(MovementKey key, float delta_time)
 {
     float velocity = movement_speed_ * delta_time;
     
-    // movement on the xz plane
     if (key == MovementKey::W)
     {
-        position_.x += front_.x * velocity;
-        position_.z += front_.z * velocity;
+        position_ += front_ * velocity;
     }
     if (key == MovementKey::S)
     {
-        position_.x -= front_.x * velocity;
-        position_.z -= front_.z * velocity; 
+        position_ -= front_ * velocity;
     }
     if (key == MovementKey::A)
     {
-        position_.x -= right_.x * velocity;
-        position_.z -= right_.z * velocity; 
+        position_ -= right_ * velocity;
     }
     if (key == MovementKey::D)
     {
-        position_.x += right_.x * velocity;
-        position_.z += right_.z * velocity;
+        position_ += right_ * velocity;
     }
 }
 

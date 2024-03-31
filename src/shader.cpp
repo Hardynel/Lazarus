@@ -1,42 +1,42 @@
 #include "shader.h"
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
+Shader::Shader(const char* vertex_path, const char* fragment_path)
 {
 	// retrieve vertex/fragment source code from filePath
-	std::string vertexCode;
-	std::string fragmentCode;
-	std::ifstream vShaderFile;
-	std::ifstream fShaderFile;
+	std::string vertex_code;
+	std::string fragment_code;
+	std::ifstream vertex_shader_file;
+	std::ifstream fragment_shader_file;
 
-	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	vertex_shader_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	fragment_shader_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
 	try
 	{
-		vShaderFile.open(vertexPath);
-		fShaderFile.open(fragmentPath);
+		vertex_shader_file.open(vertex_path);
+		fragment_shader_file.open(fragment_path);
 
-		std::stringstream vShaderStream;
-		std::stringstream fShaderStream;
+		std::stringstream vertex_shader_stream;
+		std::stringstream fragment_shader_stream;
 
 		// read file's buffer contents into streams
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
+		vertex_shader_stream << vertex_shader_file.rdbuf();
+		fragment_shader_stream << fragment_shader_file.rdbuf();
 
-		vShaderFile.close();
-		fShaderFile.close();
+		vertex_shader_file.close();
+		fragment_shader_file.close();
 
 		// converts stream into string
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
+		vertex_code = vertex_shader_stream.str();
+		fragment_code = fragment_shader_stream.str();
 	}
 	catch (std::ifstream::failure& ex)
 	{
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ:" << ex.what() << std::endl;
 	}
 
-	const char* vShaderSource = vertexCode.c_str();
-	const char* fShaderSource = fragmentCode.c_str();
+	const char* vertex_shader_source = vertex_code.c_str();
+	const char* fragment_shader_source = fragment_code.c_str();
 
 	unsigned int vertex;
 	unsigned int fragment;
@@ -45,7 +45,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	char infoLog[512];
 
 	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, &vShaderSource, NULL);
+	glShaderSource(vertex, 1, &vertex_shader_source, NULL);
 	glCompileShader(vertex);
 
 	glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
@@ -56,7 +56,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	}
 
 	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &fShaderSource, NULL);
+	glShaderSource(fragment, 1, &fragment_shader_source, NULL);
 	glCompileShader(fragment);
 	glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
 	if (!success)
@@ -85,22 +85,22 @@ void Shader::use()
 	glUseProgram(ID);
 }
 
-void Shader::set_bool(std::string name, bool value) const
+void Shader::set_bool(const std::string& name, bool value) const
 {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
 
-void Shader::set_int(std::string name, int value) const
+void Shader::set_int(const std::string name&, int value) const
 {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::set_float(std::string name, float value) const
+void Shader::set_float(const std::string name&, float value) const
 {
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::set_matrix(std::string name, glm::mat4 value) const
+void Shader::set_matrix(const std::string name&, const glm::mat4& value) const
 {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }

@@ -10,32 +10,32 @@ Camera::Camera(glm::vec3 position,
                float movement_speed,
                float sensitivity,
                float fov)
-               : position_(position)
-               , front_(front)
-               , world_up_(world_up)
-               , yaw_(yaw)
-               , pitch_(pitch)
-               , last_x_(last_x)
-               , last_y_(last_y)
-               , movement_speed_(movement_speed)
-               , sensitivity_(sensitivity)
-               , fov_(fov)
+               : position(position)
+               , front(front)
+               , world_up(world_up)
+               , yaw(yaw)
+               , pitch(pitch)
+               , last_x(last_x)
+               , last_y(last_y)
+               , movement_speed(movement_speed)
+               , sensitivity(sensitivity)
+               , fov(fov)
 {
     update_camera_vectors();
 }
 
 void Camera::process_camera_rotate(float x_offset, float y_offset)
 {
-    x_offset *= sensitivity_;
-    y_offset *= sensitivity_;
+    x_offset *= sensitivity;
+    y_offset *= sensitivity;
 
-    yaw_ += x_offset;
-    pitch_ += y_offset;
+    yaw += x_offset;
+    pitch += y_offset;
 
-    if (pitch_ > 89.0f)
-        pitch_ = 89.0f;
-    if (pitch_ < -89.0f)
-        pitch_ = -89.0f;
+    if (pitch > 89.0f)
+        pitch = 89.0f;
+    if (pitch < -89.0f)
+        pitch = -89.0f;
 
     update_camera_vectors();
 }
@@ -43,49 +43,49 @@ void Camera::process_camera_rotate(float x_offset, float y_offset)
 void Camera::update_camera_vectors()
 {
     glm::vec3 front;
-    front.x = cos(glm::radians(yaw_)) * cos(glm::radians(pitch_));
-    front.y = sin(glm::radians(pitch_));
-    front.z = sin(glm::radians(yaw_)) * cos(glm::radians(pitch_));
-    front_  = glm::normalize(front);
-    right_  = glm::normalize(glm::cross(front_, world_up_));
-    up_     = glm::normalize(glm::cross(right_, front_));
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(glm::radians(pitch));
+    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front  = glm::normalize(front);
+    right  = glm::normalize(glm::cross(front, world_up));
+    up     = glm::normalize(glm::cross(right, front));
     
 }
 
 void Camera::process_camera_zoom(double x_offset, double y_offset)
 {
-    fov_ -= static_cast<float>(y_offset);
+    fov -= static_cast<float>(y_offset);
 
-    if (fov_ < 1.0f)
-        fov_ = 1.0f;
-    if (fov_ > 90.0f)
-        fov_ = 90.0f;
+    if (fov < 1.0f)
+        fov = 1.0f;
+    if (fov > 90.0f)
+        fov = 90.0f;
 }
 
 void Camera::process_keyboard_input(MovementKey key, float delta_time)
 {
-    float velocity = movement_speed_ * delta_time;
+    float velocity = movement_speed * delta_time;
     
     // movement on the xz plane
     if (key == MovementKey::W)
     {
-        position_.x += front_.x * velocity;
-        position_.z += front_.z * velocity;
+        position.x += front.x * velocity;
+        position.z += front.z * velocity;
     }
     if (key == MovementKey::S)
     {
-        position_.x -= front_.x * velocity;
-        position_.z -= front_.z * velocity; 
+        position.x -= front.x * velocity;
+        position.z -= front.z * velocity; 
     }
     if (key == MovementKey::A)
     {
-        position_.x -= right_.x * velocity;
-        position_.z -= right_.z * velocity; 
+        position.x -= right.x * velocity;
+        position.z -= right.z * velocity; 
     }
     if (key == MovementKey::D)
     {
-        position_.x += right_.x * velocity;
-        position_.z += right_.z * velocity;
+        position.x += right.x * velocity;
+        position.z += right.z * velocity;
     }
 }
 
@@ -118,5 +118,5 @@ glm::mat4 Camera::look_at(const glm::vec3& position, const glm::vec3& direction,
 glm::mat4 Camera::get_view_matrix()
 {
     //return glm::lookAt(position_, position_ + front_, up_);
-    return look_at(position_, position_ + front_, world_up_);
+    return look_at(position, position + front, world_up);
 }
