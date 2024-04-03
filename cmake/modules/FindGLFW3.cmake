@@ -26,7 +26,7 @@ set( _glfw3_LIB_SEARCH_DIRS
     "/usr/local/lib"
     "${CMAKE_SOURCE_DIR}/lib"
     "C:/Program Files (x86)/glfw/lib-msvc110"
-    "C:/Users/Александр/Desktop/OpenGL/Lib" )
+    "C:/Users/Александр/Desktop/OpenGL/Lib/GLFW" )
 
 # Check environment for root search directory
 set( _glfw3_ENV_ROOT $ENV{GLFW3_ROOT} )

@@ -4,6 +4,7 @@ project(OpenGL_Project)
 
 set(CMAKE_CXX_STANDART 17)
 set(CMAKE_CXX_STANDART_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 IF(NOT CMAKE_BUILD_TYPE)
     SET(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
@@ -36,10 +37,10 @@ else()
     set(LIBS )
 endif(WIN32)
 
-add_library(STB_IMAGE ${CMAKE_SOURCE_DIR}/src/stb_image.cpp)
+add_library(STB_IMAGE ${CMAKE_SOURCE_DIR}/src/basic/stb_image.cpp)
 set(LIBS ${LIBS} STB_IMAGE)
 
-add_library(GLAD ${CMAKE_SOURCE_DIR}/src/glad.c)
+add_library(GLAD ${CMAKE_SOURCE_DIR}/src/basic/glad.c)
 set(LIBS ${LIBS} GLAD)
 
 add_executable(${SOURCE_EXE} ${SOURCES})
