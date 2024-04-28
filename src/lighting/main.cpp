@@ -41,7 +41,7 @@ int main()
 
     if (window == NULL)
     {
-        std::cout << "Failed to create window" << std::endl;
+        std::cerr << "Failed to create window" << std::endl;
         glfwTerminate();
         return -1;
     }
@@ -53,7 +53,7 @@ int main()
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        std::cout << "Failed to initialized GLAD" << std::endl;
+        std::cerr << "Failed to initialized GLAD" << std::endl;
         return -1;
     }
 
@@ -340,7 +340,12 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         camera.process_keyboard_input(MovementKey::W, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -400,7 +405,7 @@ unsigned int load_texture(const char* path)
     }
     else
     {
-        std::cout << "Failed to load at path: " << path << std::endl;
+        std::cerr << "Failed to load at path: " << path << std::endl;
     }
 
     

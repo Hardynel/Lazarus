@@ -1,5 +1,14 @@
 #include "camera.h"
 
+const float YAW = -90.0f;
+const float PITCH = 0.0f;
+
+const float LAST_X = 800.0f / 2.0f;
+const float LAST_Y = 600.0f / 2.0f;
+const float MOVEMENT_SPEED = 2.5f;
+const float SENSITIVITY = 0.01f;
+const float FOV = 45.0f;
+
 Camera::Camera(glm::vec3 position,
                glm::vec3 front, 
                glm::vec3 world_up,
@@ -10,16 +19,16 @@ Camera::Camera(glm::vec3 position,
                float movement_speed,
                float sensitivity,
                float fov)
-               : yaw_(yaw)
-               , pitch_(pitch)
-               , last_x_(last_x)
-               , last_y_(last_y)
-               , movement_speed_(movement_speed)
-               , sensitivity_(sensitivity)
-               , fov_(fov)
-               , position_(position)
-               , front_(front)
-               , world_up_(world_up)
+    : yaw_(yaw)
+    , pitch_(pitch)
+    , last_x_(last_x)
+    , last_y_(last_y)
+    , movement_speed_(movement_speed)
+    , sensitivity_(sensitivity)
+    , fov_(fov)
+    , position_(position)
+    , front_(front)
+    , world_up_(world_up)
 {
     update_camera_vectors();
 }

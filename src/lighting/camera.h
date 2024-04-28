@@ -15,14 +15,14 @@ enum class MovementKey
     D
 };
 
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
+extern const float YAW;
+extern const float PITCH;
 
-const float LAST_X = 800.0f / 2.0f;
-const float LAST_Y = 600.0f / 2.0f;
-const float MOVEMENT_SPEED = 2.5f;
-const float SENSITIVITY = 0.01f;
-const float FOV = 45.0f;
+extern const float LAST_X;
+extern const float LAST_Y;
+extern const float MOVEMENT_SPEED;
+extern const float SENSITIVITY;
+extern const float FOV;
 
 class Camera
 { 
